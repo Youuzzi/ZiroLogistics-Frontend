@@ -1,8 +1,43 @@
 @import "tailwindcss";
 
-/* Kalau mau custom font atau background seperti standar Zirocraft, taruh di bawahnya */
-@layer base {
-  body {
-    @apply bg-[#121416] text-slate-200 antialiased;
-  }
+:root {
+  --ziro-cyan: #0dcaf0;
+  --ziro-dark: #121416;
+  --ziro-card: #1a1d21;
+}
+
+body {
+  background-color: var(--ziro-dark);
+  color: #e2e8f0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* Custom Scrollbar Zirocraft Style */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ziro-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #2d3139;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ziro-cyan);
+}
+
+/* Global Cyan Accents */
+.ziro-cyan-glow {
+  text-shadow: 0 0 10px rgba(13, 202, 240, 0.3);
+}
+
+.ziro-border-gradient {
+  border: 1px solid rgba(13, 202, 240, 0.1);
+  transition: all 0.3s ease;
+}
+
+.ziro-border-gradient:hover {
+  border-color: var(--ziro-cyan);
+  box-shadow: 0 0 15px rgba(13, 202, 240, 0.1);
 }
