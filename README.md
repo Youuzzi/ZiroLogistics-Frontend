@@ -8,10 +8,9 @@
 
 ## 🔗 Related Repository
 
-| Repository      | Link                                                                        | Status      |
-| --------------- | --------------------------------------------------------------------------- | ----------- |
-| ⚙️ **Backend**  | [ZiroLogistics-Backend](https://github.com/Youuzzi/ZiroLogistics-Backend)   | Active      |
-| 🖥️ **Frontend** | [ZiroLogistics-Frontend](https://github.com/Youuzzi/ZiroLogistics-Frontend) | In Progress |
+| Repository     | Link                                                                      | Status |
+| -------------- | ------------------------------------------------------------------------- | ------ |
+| ⚙️ **Backend** | [ZiroLogistics-Backend](https://github.com/Youuzzi/ZiroLogistics-Backend) | Active |
 
 ---
 
