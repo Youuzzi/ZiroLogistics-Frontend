@@ -14,71 +14,70 @@ import logo from "../assets/Vertical.png";
 
 const Sidebar = ({ closeMobile }) => {
   const menuItems = [
-    {
-      icon: <LayoutDashboard size={22} />,
-      label: "Dashboard",
-      path: "/dashboard",
-    },
-    { icon: <Warehouse size={22} />, label: "Warehouses", path: "/warehouses" },
-    { icon: <Box size={22} />, label: "Master Items", path: "/items" },
-    { icon: <ArrowDownLeft size={22} />, label: "Inbound", path: "/inbound" },
-    { icon: <ArrowUpRight size={22} />, label: "Outbound", path: "/outbound" },
-    {
-      icon: <ArrowRightLeft size={22} />,
-      label: "Transfer",
-      path: "/transfer",
-    },
-    { icon: <History size={22} />, label: "Inventory Ledger", path: "/ledger" },
+    { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+    { icon: Warehouse, label: "Warehouses", path: "/warehouses" },
+    { icon: Box, label: "Master Items", path: "/items" },
+    { icon: ArrowDownLeft, label: "Inbound", path: "/inbound" },
+    { icon: ArrowUpRight, label: "Outbound", path: "/outbound" },
+    { icon: ArrowRightLeft, label: "Transfer", path: "/transfer" },
+    { icon: History, label: "Inventory Ledger", path: "/ledger" },
   ];
 
   return (
-    <aside className="w-72 h-full flex flex-col bg-[#1a1d21] border-r border-slate-800 shadow-2xl">
-      {/* Logo Section */}
-      <div className="p-8 flex items-center gap-4 border-b border-slate-800/50">
-        <img
-          src={logo}
-          alt="Ziro"
-          className="w-10 h-10 object-contain shadow-[0_0_15px_rgba(13,202,240,0.2)]"
-        />
-        <h2 className="text-[#0dcaf0] font-black tracking-tighter text-2xl uppercase italic">
-          Ziro<span className="text-white">Log</span>
-        </h2>
+    <aside className="flex h-full w-72 flex-col bg-white">
+      <div className="flex items-center gap-3 border-b border-slate-100 px-6 py-6">
+        <img src={logo} alt="ZiroLogistics" className="h-10 w-10 object-contain" />
+        <div className="min-w-0">
+          <h2 className="text-lg font-bold tracking-tight text-slate-900">
+            Ziro<span className="text-blue-600">Logistics</span>
+          </h2>
+          <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+            Warehouse Management
+          </p>
+        </div>
       </div>
 
-      {/* Menu Section */}
-      <nav className="flex-1 px-4 space-y-2 mt-6 overflow-y-auto">
-        {menuItems.map((item) => (
+      <div className="px-5 pb-2 pt-7">
+        <p className="px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+          Workspace
+        </p>
+      </div>
+
+      <nav className="flex-1 space-y-1 overflow-y-auto px-4 pb-5">
+        {menuItems.map(({ icon: Icon, label, path }) => (
           <NavLink
-            key={item.path}
-            to={item.path}
-            onClick={closeMobile} // Menutup sidebar saat menu diklik di HP
-            className={({ isActive }) => `
-              flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300
-              ${
+            key={path}
+            to={path}
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-gradient-to-r from-[#0dcaf0] to-[#0bb5d6] text-black font-black shadow-lg shadow-[#0dcaf0]/20"
-                  : "text-slate-400 hover:bg-slate-800 hover:text-[#0dcaf0] font-bold"
-              }
-            `}
+                  ? "bg-blue-50 text-blue-700"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+              }`
+            }
           >
-            <span className="flex-shrink-0">{item.icon}</span>
-            <span className="text-xs uppercase tracking-[0.15em]">
-              {item.label}
-            </span>
+            {({ isActive }) => (
+              <>
+                <Icon size={19} strokeWidth={isActive ? 2.2 : 1.8} />
+                <span>{label}</span>
+              </>
+            )}
           </NavLink>
         ))}
       </nav>
 
-      {/* Logout Section */}
-      <div className="p-6 border-t border-slate-800/50">
+      <div className="border-t border-slate-100 p-4">
         <button
+          type="button"
           onClick={() => {
             localStorage.clear();
             window.location.href = "/login";
           }}
-          className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-2xl transition-all font-black uppercase text-[10px] tracking-widest border border-red-500/20"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-500 transition-colors hover:bg-red-50 hover:text-red-600"
         >
-          <LogOut size={18} /> Sign Out Terminal
+          <LogOut size={18} />
+          Sign out
         </button>
       </div>
     </aside>
