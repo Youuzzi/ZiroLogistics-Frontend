@@ -63,7 +63,7 @@ const Warehouses = () => {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-[#0dcaf0]/10 active:scale-95 z-20"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-blue-600/10 active:scale-95 z-20"
         >
           <Plus size={18} strokeWidth={3} />
           <span className="text-xs uppercase tracking-wider">Register New</span>
@@ -126,7 +126,7 @@ const Warehouses = () => {
                     </td>
                     <td className="p-5">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-blue-700 border border-slate-700/50 shadow-inner group-hover:border-blue-200 transition-all duration-500">
+                        <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-blue-700 border border-slate-200 shadow-inner group-hover:border-blue-200 transition-all duration-500">
                           <Building2 size={18} />
                         </div>
                         <div className="flex flex-col">
@@ -144,7 +144,7 @@ const Warehouses = () => {
                         onClick={() =>
                           navigate(`/warehouses/${wh.publicId}/bins`)
                         }
-                        className="bg-slate-50 hover:bg-blue-600 text-blue-700 hover:text-slate-900 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-widest border border-slate-700/50 transition-all flex items-center gap-2 mx-auto"
+                        className="bg-slate-50 hover:bg-blue-600 text-blue-700 hover:text-slate-900 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-widest border border-slate-200 transition-all flex items-center gap-2 mx-auto"
                       >
                         <LayoutGrid size={14} /> Manage Bins
                       </button>
@@ -230,7 +230,7 @@ const Warehouses = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-blue-600 text-white font-semibold py-4 rounded-xl text-xs tracking-[0.2em] shadow-sm shadow-[#0dcaf0]/10 hover:bg-white hover:scale-[1.01] active:scale-95 transition-all uppercase flex items-center justify-center gap-3 disabled:opacity-50"
+                className="w-full bg-blue-600 text-white font-semibold py-4 rounded-xl text-xs tracking-[0.2em] shadow-sm shadow-blue-600/10 hover:bg-white hover:scale-[1.01] active:scale-95 transition-all uppercase flex items-center justify-center gap-3 disabled:opacity-50"
               >
                 {submitting ? (
                   <Loader2 className="animate-spin" size={18} />
