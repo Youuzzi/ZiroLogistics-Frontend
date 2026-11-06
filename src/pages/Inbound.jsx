@@ -92,15 +92,15 @@ const Inbound = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* HEADER - Font lebih tegas & berwibawa */}
-      <div className="flex items-center gap-5 border-b border-slate-800/50 pb-8">
-        <div className="p-4 bg-[#0dcaf0]/10 rounded-2xl text-[#0dcaf0] border border-[#0dcaf0]/20 shadow-[0_0_15px_rgba(13,202,240,0.1)]">
+      <div className="flex items-center gap-5 border-b border-slate-200 pb-8">
+        <div className="p-4 bg-blue-600/10 rounded-2xl text-blue-700 border border-blue-100 shadow-[0_0_15px_rgba(13,202,240,0.1)]">
           <ArrowDownLeft size={32} strokeWidth={2.5} />
         </div>
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tighter uppercase italic">
-            Inbound <span className="text-[#0dcaf0]">Receipt</span>
+          <h1 className="text-3xl font-semibold text-slate-900 tracking-tight ">
+            Inbound <span className="text-blue-700">Receipt</span>
           </h1>
-          <p className="text-slate-500 text-[11px] uppercase tracking-[0.5em] font-bold opacity-70">
+          <p className="text-slate-500 text-xs uppercase tracking-wide font-bold opacity-70">
             Material Induction & Quality Check
           </p>
         </div>
@@ -111,24 +111,24 @@ const Inbound = () => {
         <div className="lg:col-span-8">
           <form
             onSubmit={handleSubmit}
-            className="bg-[#1a1d21] border border-slate-800 rounded-[2.5rem] p-10 shadow-2xl space-y-10"
+            className="bg-white border border-slate-200 rounded-2xl p-10 shadow-sm space-y-10"
           >
             {/* Section 1: Item Selection */}
             <div className="space-y-6">
-              <div className="flex items-center gap-2 text-[#0dcaf0]">
+              <div className="flex items-center gap-2 text-blue-700">
                 <Package size={18} strokeWidth={2.5} />
-                <span className="text-xs font-black uppercase tracking-[0.2em]">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em]">
                   Item Identification
                 </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-widest ml-1">
                     Select SKU
                   </label>
                   <select
                     required
-                    className="w-full bg-[#121416] border border-slate-800 text-white px-5 py-4 rounded-2xl focus:border-[#0dcaf0] outline-none appearance-none text-base font-bold transition-all"
+                    className="w-full bg-white border border-slate-200 text-slate-900 px-5 py-4 rounded-2xl focus:border-blue-500 outline-none appearance-none text-base font-bold transition-all"
                     value={form.sku}
                     onChange={(e) => setForm({ ...form, sku: e.target.value })}
                   >
@@ -141,14 +141,14 @@ const Inbound = () => {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-[#0dcaf0] uppercase tracking-widest ml-1">
+                  <label className="text-xs font-semibold text-blue-700 uppercase tracking-widest ml-1">
                     Quantity
                   </label>
                   <input
                     type="number"
                     required
                     placeholder="0.00"
-                    className="w-full bg-[#121416] border border-slate-800 text-white px-5 py-4 rounded-2xl focus:border-[#0dcaf0] outline-none text-2xl font-black tracking-tight"
+                    className="w-full bg-white border border-slate-200 text-slate-900 px-5 py-4 rounded-2xl focus:border-blue-500 outline-none text-2xl font-semibold tracking-tight"
                     value={form.quantity}
                     onChange={(e) =>
                       setForm({ ...form, quantity: e.target.value })
@@ -159,21 +159,21 @@ const Inbound = () => {
             </div>
 
             {/* Section 2: Location Assignment */}
-            <div className="space-y-6 border-t border-slate-800/50 pt-8">
-              <div className="flex items-center gap-2 text-[#0dcaf0]">
+            <div className="space-y-6 border-t border-slate-200 pt-8">
+              <div className="flex items-center gap-2 text-blue-700">
                 <MapPin size={18} strokeWidth={2.5} />
-                <span className="text-xs font-black uppercase tracking-[0.2em]">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em]">
                   Storage Assignment
                 </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-widest ml-1">
                     Warehouse Terminal
                   </label>
                   <select
                     required
-                    className="w-full bg-[#121416] border border-slate-800 text-white px-5 py-4 rounded-2xl focus:border-[#0dcaf0] outline-none appearance-none font-bold"
+                    className="w-full bg-white border border-slate-200 text-slate-900 px-5 py-4 rounded-2xl focus:border-blue-500 outline-none appearance-none font-bold"
                     value={form.warehouseId}
                     onChange={(e) => handleWarehouseChange(e.target.value)}
                   >
@@ -186,13 +186,13 @@ const Inbound = () => {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-widest ml-1">
                     Bin Coordinate
                   </label>
                   <select
                     required
                     disabled={!form.warehouseId}
-                    className="w-full bg-[#121416] border border-slate-800 text-[#0dcaf0] px-5 py-4 rounded-2xl focus:border-[#0dcaf0] outline-none appearance-none disabled:opacity-20 font-black tracking-wider"
+                    className="w-full bg-white border border-slate-200 text-blue-700 px-5 py-4 rounded-2xl focus:border-blue-500 outline-none appearance-none disabled:opacity-20 font-semibold tracking-wider"
                     value={form.binCode}
                     onChange={(e) =>
                       setForm({ ...form, binCode: e.target.value })
@@ -210,20 +210,20 @@ const Inbound = () => {
             </div>
 
             {/* Section 3: Documentation */}
-            <div className="space-y-6 border-t border-slate-800/50 pt-8">
-              <div className="flex items-center gap-2 text-[#0dcaf0]">
+            <div className="space-y-6 border-t border-slate-200 pt-8">
+              <div className="flex items-center gap-2 text-blue-700">
                 <ClipboardList size={18} strokeWidth={2.5} />
-                <span className="text-xs font-black uppercase tracking-[0.2em]">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em]">
                   Audit Documentation
                 </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-widest ml-1">
                     Reference No
                   </label>
                   <input
-                    className="w-full bg-[#121416] border border-slate-800 text-white px-5 py-4 rounded-2xl focus:border-[#0dcaf0] outline-none font-mono uppercase"
+                    className="w-full bg-white border border-slate-200 text-slate-900 px-5 py-4 rounded-2xl focus:border-blue-500 outline-none font-mono uppercase"
                     placeholder="PO-2026-XXXX"
                     value={form.referenceNo}
                     onChange={(e) =>
@@ -235,11 +235,11 @@ const Inbound = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-widest ml-1">
                     Remarks
                   </label>
                   <input
-                    className="w-full bg-[#121416] border border-slate-800 text-white px-5 py-4 rounded-2xl focus:border-[#0dcaf0] outline-none"
+                    className="w-full bg-white border border-slate-200 text-slate-900 px-5 py-4 rounded-2xl focus:border-blue-500 outline-none"
                     placeholder="Optional notes..."
                     value={form.note}
                     onChange={(e) => setForm({ ...form, note: e.target.value })}
@@ -250,14 +250,14 @@ const Inbound = () => {
 
             <button
               disabled={loading}
-              className="w-full bg-[#0dcaf0] text-black font-black py-6 rounded-[1.5rem] hover:bg-white transition-all flex items-center justify-center gap-4 shadow-xl shadow-[#0dcaf0]/10 disabled:opacity-50 active:scale-95"
+              className="w-full bg-blue-600 text-slate-900 font-semibold py-6 rounded-xl hover:bg-white transition-all flex items-center justify-center gap-4 shadow-sm shadow-[#0dcaf0]/10 disabled:opacity-50 active:scale-95"
             >
               {loading ? (
                 <Loader2 className="animate-spin" size={24} />
               ) : (
                 <>
                   <ShieldCheck size={24} strokeWidth={3} />{" "}
-                  <span className="tracking-[0.3em] uppercase text-sm">
+                  <span className="tracking-wide uppercase text-sm">
                     Authorize Inbound
                   </span>
                 </>
@@ -268,38 +268,38 @@ const Inbound = () => {
 
         {/* RIGHT: METRICS (4 COL) */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-[#1a1d21] border border-slate-800 rounded-[2.5rem] p-8 shadow-xl relative overflow-hidden">
-            <div className="absolute -right-6 -top-6 opacity-[0.02] text-white">
+          <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm relative overflow-hidden">
+            <div className="absolute -right-6 -top-6 opacity-[0.02] text-slate-900">
               <Package size={150} />
             </div>
-            <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8 border-b border-slate-800 pb-4 flex items-center gap-2">
-              <AlertCircle size={14} className="text-[#0dcaf0]" /> Real-time
+            <h4 className="text-slate-900 font-semibold text-xs uppercase tracking-[0.2em] mb-8 border-b border-slate-200 pb-4 flex items-center gap-2">
+              <AlertCircle size={14} className="text-blue-700" /> Real-time
               Metrics
             </h4>
             <div className="space-y-8 relative z-10">
-              <div className="flex justify-between items-center bg-black/20 p-4 rounded-2xl border border-slate-800/50">
-                <span className="text-[11px] text-slate-500 font-black uppercase tracking-widest">
+              <div className="flex justify-between items-center bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                <span className="text-xs text-slate-500 font-semibold uppercase tracking-widest">
                   Total Weight
                 </span>
-                <span className="text-white font-black text-2xl tracking-tighter">
+                <span className="text-slate-900 font-semibold text-2xl tracking-tight">
                   {selectedItem
                     ? (
                         selectedItem.weightPerUnit * (form.quantity || 0)
                       ).toFixed(2)
                     : "0.00"}
-                  <span className="ml-2 text-xs text-[#0dcaf0]">KG</span>
+                  <span className="ml-2 text-xs text-blue-700">KG</span>
                 </span>
               </div>
               <div className="flex justify-between items-center px-4">
-                <span className="text-[11px] text-slate-500 font-black uppercase tracking-widest">
+                <span className="text-xs text-slate-500 font-semibold uppercase tracking-widest">
                   Unit of Measure
                 </span>
-                <span className="text-[#0dcaf0] font-black text-lg uppercase tracking-widest">
+                <span className="text-blue-700 font-semibold text-lg uppercase tracking-widest">
                   {selectedItem?.baseUom || "---"}
                 </span>
               </div>
-              <div className="p-5 bg-[#0dcaf0]/5 border border-[#0dcaf0]/10 rounded-[1.5rem]">
-                <p className="text-[10px] text-[#0dcaf0] leading-relaxed font-bold italic text-center uppercase tracking-wider">
+              <div className="p-5 bg-blue-600/5 border border-blue-500/10 rounded-xl">
+                <p className="text-xs text-blue-700 leading-relaxed font-bold italic text-center uppercase tracking-wider">
                   "System will automatically verify bin capacity before
                   finalizing transaction."
                 </p>
@@ -308,7 +308,7 @@ const Inbound = () => {
           </div>
 
           <div className="p-6 text-center">
-            <p className="text-[11px] text-slate-600 font-black uppercase tracking-[0.5em] italic opacity-40">
+            <p className="text-xs text-slate-500 font-semibold uppercase tracking-wide italic opacity-40">
               Zirocraft Engine v3.2
             </p>
           </div>
