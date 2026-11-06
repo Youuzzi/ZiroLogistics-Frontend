@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { getDashboardSummary } from "../api/DashboardService";
-import { Warehouse, Package, Activity, Loader2, Landmark } from "lucide-react";
-import toast from "react-hot-toast";
+import {
+  Warehouse,
+  Package,
+  Activity,
+  Loader2,
+  Landmark,
+  ArrowUpRight,
+  Boxes,
+} from "lucide-react";
 
 const Dashboard = () => {
   const [summary, setSummary] = useState({
@@ -18,7 +25,7 @@ const Dashboard = () => {
         const { data } = await getDashboardSummary();
         setSummary(data);
       } catch (err) {
-        console.error("Dashboard sync failed");
+        console.error("Dashboard sync failed", err);
       } finally {
         setLoading(false);
       }
@@ -26,140 +33,113 @@ const Dashboard = () => {
     fetchSummary();
   }, []);
 
+  const metrics = [
+    {
+      label: "Registered items",
+      value: summary.totalItems,
+      description: "Items in the catalog",
+      icon: Package,
+      iconClass: "bg-blue-50 text-blue-700",
+    },
+    {
+      label: "Warehouses",
+      value: summary.totalWarehouses,
+      description: "Registered locations",
+      icon: Warehouse,
+      iconClass: "bg-violet-50 text-violet-700",
+    },
+    {
+      label: "Storage bins",
+      value: summary.totalBins,
+      description: "Storage locations",
+      icon: Landmark,
+      iconClass: "bg-amber-50 text-amber-700",
+    },
+    {
+      label: "Transactions today",
+      value: summary.totalTransactionsToday,
+      description: "Inventory movements",
+      icon: Activity,
+      iconClass: "bg-emerald-50 text-emerald-700",
+    },
+  ];
+
   return (
-    <div className="space-y-10 animate-in fade-in duration-1000">
-      {/* --- WELCOME HEADER --- */}
-      <div className="flex flex-col">
-        <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic">
-          Analytics <span className="text-[#0dcaf0]">Overview</span>
-        </h1>
-        <p className="text-slate-500 text-xs uppercase tracking-[0.5em] mt-2 font-bold opacity-70">
-          Real-time Centralized Control Terminal
-        </p>
-      </div>
+    <div className="space-y-8">
+      <section className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-sm font-medium text-blue-700">Warehouse operations</p>
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+            Dashboard
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+            A clear overview of your warehouse network, catalog, storage locations, and daily activity.
+          </p>
+        </div>
+        <div className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          Workspace available
+        </div>
+      </section>
 
-      {/* --- ANALYTICS GRID --- */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {/* 1. TOTAL ITEMS */}
-        <div className="bg-[#1a1d21] border border-slate-800 p-8 rounded-[2.5rem] hover:border-[#0dcaf0]/30 transition-all group relative overflow-hidden shadow-2xl">
-          <div className="absolute -right-6 -bottom-6 opacity-[0.03] text-white group-hover:rotate-12 transition-transform">
-            <Package size={140} />
-          </div>
-          <div className="flex justify-between items-start mb-6 relative z-10">
-            <div className="p-3.5 bg-slate-800 rounded-2xl text-[#0dcaf0] border border-slate-700">
-              <Package size={24} />
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {metrics.map(({ label, value, description, icon: Icon, iconClass }) => (
+          <article
+            key={label}
+            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/40"
+          >
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm font-medium text-slate-500">{label}</p>
+                <div className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
+                  {loading ? (
+                    <Loader2 className="animate-spin text-slate-400" size={27} />
+                  ) : (
+                    Number(value ?? 0).toLocaleString()
+                  )}
+                </div>
+              </div>
+              <div className={`rounded-xl p-3 ${iconClass}`}>
+                <Icon size={21} strokeWidth={1.9} />
+              </div>
             </div>
-            <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">
-              Master SKU
-            </span>
-          </div>
-          <h2 className="text-4xl font-black text-white tracking-tighter mb-1 relative z-10">
-            {loading ? (
-              <Loader2 className="animate-spin text-slate-700" size={30} />
-            ) : (
-              summary.totalItems
-            )}
-          </h2>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-            Total Registered Items
-          </p>
-        </div>
-
-        {/* 2. TOTAL TERMINALS */}
-        <div className="bg-[#1a1d21] border border-slate-800 p-8 rounded-[2.5rem] hover:border-[#0dcaf0]/30 transition-all group relative overflow-hidden shadow-2xl">
-          <div className="absolute -right-6 -bottom-6 opacity-[0.03] text-white group-hover:rotate-12 transition-transform">
-            <Warehouse size={140} />
-          </div>
-          <div className="flex justify-between items-start mb-6 relative z-10">
-            <div className="p-3.5 bg-slate-800 rounded-2xl text-[#0dcaf0] border border-slate-700">
-              <Warehouse size={24} />
+            <div className="mt-5 flex items-center gap-1.5 border-t border-slate-100 pt-3 text-xs text-slate-500">
+              <ArrowUpRight size={14} className="text-slate-400" />
+              {description}
             </div>
-            <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">
-              Assets
-            </span>
-          </div>
-          <h2 className="text-4xl font-black text-white tracking-tighter mb-1 relative z-10">
-            {loading ? (
-              <Loader2 className="animate-spin text-slate-700" size={30} />
-            ) : (
-              summary.totalWarehouses
-            )}
-          </h2>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-            Active Terminals
-          </p>
-        </div>
+          </article>
+        ))}
+      </section>
 
-        {/* 3. TOTAL BINS (RAK) */}
-        <div className="bg-[#1a1d21] border border-slate-800 p-8 rounded-[2.5rem] hover:border-[#0dcaf0]/30 transition-all group relative overflow-hidden shadow-2xl">
-          <div className="absolute -right-6 -bottom-6 opacity-[0.03] text-white group-hover:rotate-12 transition-transform">
-            <Landmark size={140} />
-          </div>
-          <div className="flex justify-between items-start mb-6 relative z-10">
-            <div className="p-3.5 bg-slate-800 rounded-2xl text-[#0dcaf0] border border-slate-700">
-              <Landmark size={24} />
+      <section className="grid grid-cols-1 gap-5 xl:grid-cols-[1.4fr_1fr]">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/40">
+          <div className="flex items-center gap-3">
+            <div className="rounded-xl bg-blue-50 p-3 text-blue-700">
+              <Boxes size={21} />
             </div>
-            <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">
-              Grid
-            </span>
-          </div>
-          <h2 className="text-4xl font-black text-white tracking-tighter mb-1 relative z-10">
-            {loading ? (
-              <Loader2 className="animate-spin text-slate-700" size={30} />
-            ) : (
-              summary.totalBins
-            )}
-          </h2>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-            Storage Bin Matrix
-          </p>
-        </div>
-
-        {/* 4. SYSTEM HEALTH */}
-        <div className="bg-[#1a1d21] border border-slate-800 p-8 rounded-[2.5rem] hover:border-[#0dcaf0]/30 transition-all group relative overflow-hidden shadow-2xl">
-          <div className="absolute -right-6 -bottom-6 opacity-[0.03] text-[#0dcaf0] group-hover:rotate-12 transition-transform">
-            <Activity size={140} />
-          </div>
-          <div className="flex justify-between items-start mb-6 relative z-10">
-            <div className="p-3.5 bg-slate-800 rounded-2xl text-[#0dcaf0] border border-slate-700">
-              <Activity size={24} />
+            <div>
+              <h2 className="font-semibold text-slate-900">Inventory workspace</h2>
+              <p className="mt-0.5 text-sm text-slate-500">Your warehouse data at a glance</p>
             </div>
-            <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">
-              Status
-            </span>
           </div>
-          <div className="flex items-center gap-3 relative z-10">
-            <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-            <h2 className="text-2xl font-black text-white tracking-tight uppercase">
-              Operational
-            </h2>
-          </div>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-2 ml-6">
-            Engine v1.0 Online
+          <p className="mt-5 text-sm leading-6 text-slate-600">
+            Manage warehouse locations, storage bins, and item records from one workspace.
+            Use the navigation to review inventory and process stock movements.
           </p>
         </div>
-      </div>
 
-      {/* --- ADVERTISING / INFO PANEL --- */}
-      <div className="p-12 bg-gradient-to-br from-[#1a1d21] to-[#121416] border border-slate-800 rounded-[3rem] shadow-inner">
-        <div className="max-w-2xl">
-          <h4 className="text-[#0dcaf0] text-[10px] font-black uppercase tracking-[0.4em] mb-4">
-            Enterprise Edition
-          </h4>
-          <h2 className="text-2xl text-white font-bold tracking-tight mb-4 leading-snug">
-            ZiroLogistics is now running with high-concurrency{" "}
-            <span className="italic underline decoration-[#0dcaf0] underline-offset-4">
-              Pessimistic Locking
-            </span>{" "}
-            architecture.
+        <div className="rounded-2xl border border-blue-100 bg-blue-50/70 p-6">
+          <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
+            Data integrity
+          </p>
+          <h2 className="mt-2 text-lg font-semibold text-slate-900">
+            Traceable inventory movements
           </h2>
-          <p className="text-slate-500 text-sm leading-relaxed">
-            Every single transaction is monitored and secured through our
-            proprietary Inventory Ledger system, ensuring zero stock leakage and
-            absolute data integrity across all global terminals.
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Review inbound, outbound, and transfer activity in the inventory ledger to follow recorded stock changes.
           </p>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
