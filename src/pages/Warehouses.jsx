@@ -52,18 +52,18 @@ const Warehouses = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-500 relative">
       {/* HEADER SECTION */}
-      <div className="flex justify-between items-end border-b border-slate-800/50 pb-6">
+      <div className="flex justify-between items-end border-b border-slate-200 pb-6">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight uppercase italic">
-            Warehouse <span className="text-[#0dcaf0]">Assets</span>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight ">
+            Warehouse <span className="text-blue-700">Assets</span>
           </h1>
-          <p className="text-slate-400 text-[11px] uppercase tracking-[0.3em] mt-1 font-bold">
+          <p className="text-slate-500 text-xs uppercase tracking-wide mt-1 font-bold">
             Physical Infrastructure Control
           </p>
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-[#0dcaf0] hover:bg-[#0bb5d6] text-black font-black px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-[#0dcaf0]/10 active:scale-95 z-20"
+          className="bg-blue-600 hover:bg-blue-700 text-slate-900 font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-[#0dcaf0]/10 active:scale-95 z-20"
         >
           <Plus size={18} strokeWidth={3} />
           <span className="text-xs uppercase tracking-wider">Register New</span>
@@ -71,31 +71,31 @@ const Warehouses = () => {
       </div>
 
       {/* DATA TABLE */}
-      <div className="bg-[#1a1d21] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto scrollbar-hide">
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className="bg-slate-800/30 border-b border-slate-800">
-                <th className="p-5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
+              <tr className="bg-slate-50 border-b border-slate-200">
+                <th className="p-5 text-xs font-semibold text-slate-500 uppercase tracking-[0.2em]">
                   Identification
                 </th>
-                <th className="p-5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
+                <th className="p-5 text-xs font-semibold text-slate-500 uppercase tracking-[0.2em]">
                   Asset Name & Address
                 </th>
-                <th className="p-5 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] text-center w-48">
+                <th className="p-5 text-xs font-semibold text-slate-500 uppercase tracking-[0.2em] text-center w-48">
                   Control
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/50">
+            <tbody className="divide-y divide-slate-100">
               {loading ? (
                 <tr>
                   <td colSpan="3" className="p-24 text-center">
                     <Loader2
-                      className="animate-spin text-[#0dcaf0] mx-auto"
+                      className="animate-spin text-blue-700 mx-auto"
                       size={32}
                     />
-                    <p className="text-[10px] text-slate-600 uppercase tracking-[0.3em] mt-4">
+                    <p className="text-xs text-slate-500 uppercase tracking-wide mt-4">
                       Syncing Master Terminal...
                     </p>
                   </td>
@@ -103,7 +103,7 @@ const Warehouses = () => {
               ) : warehouses.length === 0 ? (
                 <tr>
                   <td colSpan="3" className="p-24 text-center">
-                    <p className="text-slate-600 uppercase text-[10px] font-black tracking-widest">
+                    <p className="text-slate-500 uppercase text-xs font-semibold tracking-widest">
                       No physical assets indexed in current sector
                     </p>
                   </td>
@@ -112,25 +112,25 @@ const Warehouses = () => {
                 warehouses.map((wh) => (
                   <tr
                     key={wh.publicId}
-                    className="hover:bg-white/[0.02] transition-colors group"
+                    className="hover:bg-slate-50 transition-colors group"
                   >
                     <td className="p-5">
                       <div className="flex flex-col gap-0.5">
-                        <span className="text-[#0dcaf0] font-mono text-sm font-bold tracking-wider">
+                        <span className="text-blue-700 font-mono text-sm font-bold tracking-wider">
                           {wh.code}
                         </span>
-                        <span className="text-[10px] text-slate-600 font-mono opacity-60">
+                        <span className="text-xs text-slate-500 font-mono opacity-60">
                           ID: {wh.publicId.substring(0, 8)}...
                         </span>
                       </div>
                     </td>
                     <td className="p-5">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center text-[#0dcaf0] border border-slate-700/50 shadow-inner group-hover:border-[#0dcaf0]/30 transition-all duration-500">
+                        <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-blue-700 border border-slate-700/50 shadow-inner group-hover:border-blue-200 transition-all duration-500">
                           <Building2 size={18} />
                         </div>
                         <div className="flex flex-col">
-                          <span className="text-white font-bold text-base tracking-tight">
+                          <span className="text-slate-900 font-bold text-base tracking-tight">
                             {wh.name}
                           </span>
                           <span className="text-slate-500 text-xs font-medium max-w-sm line-clamp-1">
@@ -144,7 +144,7 @@ const Warehouses = () => {
                         onClick={() =>
                           navigate(`/warehouses/${wh.publicId}/bins`)
                         }
-                        className="bg-slate-800/30 hover:bg-[#0dcaf0] text-[#0dcaf0] hover:text-black px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest border border-slate-700/50 transition-all flex items-center gap-2 mx-auto"
+                        className="bg-slate-50 hover:bg-blue-600 text-blue-700 hover:text-slate-900 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-widest border border-slate-700/50 transition-all flex items-center gap-2 mx-auto"
                       >
                         <LayoutGrid size={14} /> Manage Bins
                       </button>
@@ -159,21 +159,21 @@ const Warehouses = () => {
 
       {/* SETUP MODAL */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-[#1a1d21] border border-slate-800 w-full max-w-2xl rounded-[2rem] p-10 shadow-2xl relative overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl p-10 shadow-sm relative overflow-hidden">
             {/* Ambient Background Decor */}
-            <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#0dcaf0]/5 blur-[100px] rounded-full"></div>
+            <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full"></div>
 
             <div className="flex justify-between items-center mb-8 relative z-10">
               <div>
-                <h2 className="text-xl font-black text-white uppercase italic tracking-tight">
-                  New Terminal <span className="text-[#0dcaf0]">Setup</span>
+                <h2 className="text-xl font-semibold text-slate-900  tracking-tight">
+                  New Terminal <span className="text-blue-700">Setup</span>
                 </h2>
-                <div className="h-0.5 w-12 bg-[#0dcaf0] mt-1"></div>
+                <div className="h-0.5 w-12 bg-blue-600 mt-1"></div>
               </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-slate-500 hover:text-white transition-colors"
+                className="text-slate-500 hover:text-slate-900 transition-colors"
               >
                 <X size={24} />
               </button>
@@ -185,12 +185,12 @@ const Warehouses = () => {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-widest ml-1">
                     Asset Code
                   </label>
                   <input
                     required
-                    className="w-full bg-[#121416] border border-slate-800 text-[#0dcaf0] p-4 rounded-xl focus:border-[#0dcaf0] outline-none font-mono text-base font-bold uppercase transition-all"
+                    className="w-full bg-white border border-slate-200 text-blue-700 p-4 rounded-xl focus:border-blue-500 outline-none font-mono text-base font-bold uppercase transition-all"
                     placeholder="WH-ID-01"
                     value={form.code}
                     onChange={(e) =>
@@ -199,12 +199,12 @@ const Warehouses = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-semibold text-slate-500 uppercase tracking-widest ml-1">
                     Terminal Name
                   </label>
                   <input
                     required
-                    className="w-full bg-[#121416] border border-slate-800 text-white p-4 rounded-xl focus:border-[#0dcaf0] outline-none text-base font-semibold transition-all"
+                    className="w-full bg-white border border-slate-200 text-slate-900 p-4 rounded-xl focus:border-blue-500 outline-none text-base font-semibold transition-all"
                     placeholder="Main Central Hub"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -213,12 +213,12 @@ const Warehouses = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                <label className="text-xs font-semibold text-slate-500 uppercase tracking-widest ml-1">
                   Deployment Address
                 </label>
                 <textarea
                   rows="3"
-                  className="w-full bg-[#121416] border border-slate-800 text-white p-4 rounded-xl focus:border-[#0dcaf0] outline-none text-sm resize-none transition-all"
+                  className="w-full bg-white border border-slate-200 text-slate-900 p-4 rounded-xl focus:border-blue-500 outline-none text-sm resize-none transition-all"
                   placeholder="Physical location details..."
                   value={form.address}
                   onChange={(e) =>
@@ -230,7 +230,7 @@ const Warehouses = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-[#0dcaf0] text-black font-black py-4 rounded-xl text-xs tracking-[0.2em] shadow-xl shadow-[#0dcaf0]/10 hover:bg-white hover:scale-[1.01] active:scale-95 transition-all uppercase flex items-center justify-center gap-3 disabled:opacity-50"
+                className="w-full bg-blue-600 text-slate-900 font-semibold py-4 rounded-xl text-xs tracking-[0.2em] shadow-sm shadow-[#0dcaf0]/10 hover:bg-white hover:scale-[1.01] active:scale-95 transition-all uppercase flex items-center justify-center gap-3 disabled:opacity-50"
               >
                 {submitting ? (
                   <Loader2 className="animate-spin" size={18} />
