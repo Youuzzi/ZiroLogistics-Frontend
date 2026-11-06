@@ -107,15 +107,15 @@ const Transfer = () => {
 
   return (
     <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-700">
-      <div className="flex items-center gap-5 border-b border-slate-800 pb-8 text-left">
-        <div className="p-4 bg-[#0dcaf0]/10 rounded-2xl text-[#0dcaf0] border border-[#0dcaf0]/20 shadow-[0_0_20px_rgba(13,202,240,0.1)]">
+      <div className="flex items-center gap-5 border-b border-slate-200 pb-8 text-left">
+        <div className="p-4 bg-blue-600/10 rounded-2xl text-blue-700 border border-blue-100 shadow-sm">
           <ArrowRightLeft size={32} strokeWidth={2.5} />
         </div>
         <div>
-          <h1 className="text-3xl font-black text-white uppercase italic tracking-tighter">
+          <h1 className="text-3xl font-semibold text-slate-900  tracking-tight">
             Internal Transfer
           </h1>
-          <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.4em]">
+          <p className="text-slate-500 text-xs font-bold uppercase tracking-wide">
             Asset Relocation Engine
           </p>
         </div>
@@ -125,15 +125,15 @@ const Transfer = () => {
         onSubmit={handleSubmit}
         className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left"
       >
-        <div className="lg:col-span-7 bg-[#1a1d21] border border-slate-800 rounded-[2.5rem] p-10 shadow-2xl space-y-8">
+        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-10 shadow-sm space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-2">
-              <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest ml-1">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">
                 Identify SKU
               </label>
               <select
                 required
-                className="w-full bg-[#121416] border border-slate-800 text-white p-4 rounded-2xl outline-none focus:border-[#0dcaf0] appearance-none"
+                className="w-full bg-white border border-slate-200 text-slate-900 p-4 rounded-2xl outline-none focus:border-blue-500 appearance-none"
                 value={form.sku}
                 onChange={(e) => handleSkuChange(e.target.value)}
               >
@@ -146,13 +146,13 @@ const Transfer = () => {
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest ml-1">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">
                 Source Bin
               </label>
               <select
                 required
                 disabled={!form.sku}
-                className="w-full bg-[#121416] border border-slate-800 text-white p-4 rounded-2xl outline-none focus:border-[#0dcaf0] appearance-none disabled:opacity-20"
+                className="w-full bg-white border border-slate-200 text-slate-900 p-4 rounded-2xl outline-none focus:border-blue-500 appearance-none disabled:opacity-20"
                 value={form.sourceBinCode}
                 onChange={(e) =>
                   setForm({ ...form, sourceBinCode: e.target.value })
@@ -167,15 +167,15 @@ const Transfer = () => {
               </select>
             </div>
           </div>
-          <div className="pt-4 border-t border-slate-800/50">
-            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+          <div className="pt-4 border-t border-slate-200">
+            <span className="text-xs text-slate-500 font-bold uppercase tracking-widest">
               Quantity to Move
             </span>
             <input
               type="number"
               step="0.01"
               required
-              className="bg-transparent text-5xl font-black text-[#0dcaf0] outline-none w-full mt-2"
+              className="bg-transparent text-5xl font-semibold text-blue-700 outline-none w-full mt-2"
               placeholder="0.00"
               max={selectedSource?.quantity || 0}
               value={form.quantity}
@@ -184,18 +184,18 @@ const Transfer = () => {
           </div>
         </div>
 
-        <div className="lg:col-span-5 bg-[#1a1d21] border border-[#0dcaf0]/20 rounded-[2.5rem] p-10 shadow-2xl space-y-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8 opacity-[0.03] text-[#0dcaf0]">
+        <div className="lg:col-span-5 bg-white border border-blue-100 rounded-2xl p-10 shadow-sm space-y-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-[0.03] text-blue-700">
             <MapPin size={120} />
           </div>
           <div className="space-y-6 relative z-10">
             <div className="space-y-2">
-              <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest ml-1">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">
                 Destination Terminal
               </label>
               <select
                 required
-                className="bg-[#121416] border border-slate-800 text-white p-4 rounded-2xl w-full outline-none focus:border-[#0dcaf0] appearance-none"
+                className="bg-white border border-slate-200 text-slate-900 p-4 rounded-2xl w-full outline-none focus:border-blue-500 appearance-none"
                 value={form.destWarehouseId}
                 onChange={(e) => handleDestWhChange(e.target.value)}
               >
@@ -208,13 +208,13 @@ const Transfer = () => {
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest ml-1">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">
                 Destination Bin
               </label>
               <select
                 required
                 disabled={!form.destWarehouseId}
-                className="bg-[#121416] border border-slate-800 text-[#0dcaf0] p-4 rounded-2xl w-full outline-none focus:border-[#0dcaf0] appearance-none font-bold"
+                className="bg-white border border-slate-200 text-blue-700 p-4 rounded-2xl w-full outline-none focus:border-blue-500 appearance-none font-bold"
                 value={form.destinationBinCode}
                 onChange={(e) =>
                   setForm({ ...form, destinationBinCode: e.target.value })
@@ -230,7 +230,7 @@ const Transfer = () => {
             </div>
             <button
               disabled={loading || !form.destinationBinCode || !form.quantity}
-              className="w-full bg-[#0dcaf0] text-black font-black py-5 rounded-[1.5rem] hover:bg-[#0bb5d6] transition-all shadow-lg shadow-[#0dcaf0]/20 disabled:opacity-20"
+              className="w-full bg-blue-600 text-slate-900 font-semibold py-5 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-[#0dcaf0]/20 disabled:opacity-20"
             >
               {loading ? (
                 <Loader2 className="animate-spin mx-auto" />
