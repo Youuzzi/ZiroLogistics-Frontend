@@ -2,66 +2,55 @@ import React from "react";
 import { User, Bell, Menu, ShieldCheck } from "lucide-react";
 
 const Topbar = ({ onMenuClick }) => {
-  // --- LOGIC: AMBIL DATA USER DARI SESSION ---
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
 
-  // --- LOGIC: CLEANING ROLE STRING ---
-  // Menghilangkan "ROLE_" dari backend (misal: ROLE_ADMIN jadi ADMIN)
   const getDisplayRole = (role) => {
-    if (!role) return "ADMIN"; // Fallback default
+    if (!role) return "ADMIN";
     return role.replace("ROLE_", "").toUpperCase();
   };
 
   return (
-    <header className="h-24 bg-[#121416]/80 backdrop-blur-xl border-b border-slate-800/50 px-6 md:px-10 flex items-center justify-between sticky top-0 z-30">
-      {/* Sisi Kiri: Info Terminal & Hamburger */}
-      <div className="flex items-center gap-4">
+    <header className="sticky top-0 z-30 flex h-[76px] items-center justify-between border-b border-slate-200 bg-white/95 px-4 backdrop-blur sm:px-6 lg:px-10">
+      <div className="flex min-w-0 items-center gap-3">
         <button
+          type="button"
+          aria-label="Open navigation"
           onClick={onMenuClick}
-          className="lg:hidden p-3 bg-slate-800 rounded-xl text-[#0dcaf0] border border-slate-700 active:scale-90 transition-all shadow-lg"
+          className="rounded-lg border border-slate-200 p-2 text-slate-600 transition-colors hover:bg-slate-50 lg:hidden"
         >
-          <Menu size={24} />
+          <Menu size={20} />
         </button>
-        <div className="flex flex-col">
-          <span className="text-[10px] text-[#0dcaf0] font-black uppercase tracking-[0.3em] opacity-80">
-            Operational Terminal
-          </span>
-          <h3 className="text-white text-lg font-black tracking-tight uppercase italic">
-            Control Center
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-slate-500">Workspace</p>
+          <h3 className="truncate text-base font-semibold tracking-tight text-slate-900 sm:text-lg">
+            Operations overview
           </h3>
         </div>
       </div>
 
-      {/* Sisi Kanan: Profile & Notification */}
-      <div className="flex items-center gap-4 md:gap-8">
-        <button className="relative text-slate-400 hover:text-[#0dcaf0] transition-all p-2 group">
-          <Bell size={22} />
-          <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-[#0dcaf0] rounded-full border-2 border-[#121416] group-hover:scale-125 transition-transform"></span>
+      <div className="flex items-center gap-3 sm:gap-5">
+        <button
+          type="button"
+          aria-label="Notifications"
+          className="relative rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-800"
+        >
+          <Bell size={19} />
+          <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-blue-600 ring-2 ring-white" />
         </button>
 
-        <div className="flex items-center gap-4 pl-4 md:pl-8 border-l border-slate-800">
-          <div className="text-right hidden sm:flex flex-col">
-            {/* NAMA USER OTOMATIS */}
-            <span className="text-sm font-black text-white uppercase tracking-tighter">
-              {user?.name || "UNIDENTIFIED PERSONNEL"}
-            </span>
-
-            {/* ROLE CLEAN (ADMIN / STAFF ONLY) */}
-            <div className="flex items-center justify-end gap-1 mt-1">
-              <ShieldCheck size={15} className="text-[#0dcaf0] opacity-50" />
-              <span className="text-[10px] text-[#0dcaf0] font-black uppercase tracking-widest opacity-70">
-                {getDisplayRole(user?.role)}
-              </span>
+        <div className="flex items-center gap-3 border-l border-slate-200 pl-3 sm:pl-5">
+          <div className="hidden text-right sm:block">
+            <p className="max-w-40 truncate text-sm font-semibold text-slate-800">
+              {user?.name || "Workspace user"}
+            </p>
+            <div className="mt-0.5 flex items-center justify-end gap-1 text-xs text-slate-500">
+              <ShieldCheck size={13} className="text-blue-600" />
+              <span>{getDisplayRole(user?.role)}</span>
             </div>
           </div>
-
-          <div className="w-12 h-12 bg-slate-800 border-2 border-slate-700 rounded-2xl flex items-center justify-center text-[#0dcaf0] shadow-[0_0_20px_rgba(0,0,0,0.4)] group hover:border-[#0dcaf0]/50 transition-all">
-            <User
-              size={24}
-              strokeWidth={2.5}
-              className="group-hover:scale-110 transition-transform"
-            />
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-700 ring-1 ring-blue-100">
+            <User size={18} />
           </div>
         </div>
       </div>
