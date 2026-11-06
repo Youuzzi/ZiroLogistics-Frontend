@@ -63,7 +63,7 @@ const Warehouses = () => {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-slate-900 font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-[#0dcaf0]/10 active:scale-95 z-20"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-[#0dcaf0]/10 active:scale-95 z-20"
         >
           <Plus size={18} strokeWidth={3} />
           <span className="text-xs uppercase tracking-wider">Register New</span>
@@ -230,7 +230,7 @@ const Warehouses = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-blue-600 text-slate-900 font-semibold py-4 rounded-xl text-xs tracking-[0.2em] shadow-sm shadow-[#0dcaf0]/10 hover:bg-white hover:scale-[1.01] active:scale-95 transition-all uppercase flex items-center justify-center gap-3 disabled:opacity-50"
+                className="w-full bg-blue-600 text-white font-semibold py-4 rounded-xl text-xs tracking-[0.2em] shadow-sm shadow-[#0dcaf0]/10 hover:bg-white hover:scale-[1.01] active:scale-95 transition-all uppercase flex items-center justify-center gap-3 disabled:opacity-50"
               >
                 {submitting ? (
                   <Loader2 className="animate-spin" size={18} />
