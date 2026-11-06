@@ -230,7 +230,7 @@ const Transfer = () => {
             </div>
             <button
               disabled={loading || !form.destinationBinCode || !form.quantity}
-              className="w-full bg-blue-600 text-slate-900 font-semibold py-5 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-[#0dcaf0]/20 disabled:opacity-20"
+              className="w-full bg-blue-600 text-white font-semibold py-5 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-[#0dcaf0]/20 disabled:opacity-20"
             >
               {loading ? (
                 <Loader2 className="animate-spin mx-auto" />
