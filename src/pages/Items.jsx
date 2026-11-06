@@ -95,7 +95,7 @@ const Items = () => {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-slate-900 font-semibold px-6 py-3 rounded-xl hover:bg-white transition-all flex items-center gap-2 shadow-lg shadow-[#0dcaf0]/20 active:scale-95"
+          className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white transition-all flex items-center gap-2 shadow-lg shadow-[#0dcaf0]/20 active:scale-95"
         >
           <Plus size={20} strokeWidth={3} />{" "}
           <span className="text-xs uppercase tracking-widest">
@@ -348,7 +348,7 @@ const Items = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-[2] bg-blue-600 text-slate-900 font-semibold px-8 py-5 rounded-2xl hover:bg-white transition-all uppercase text-xs tracking-[0.2em] shadow-sm shadow-[#0dcaf0]/10 flex items-center justify-center gap-3 disabled:opacity-50"
+                  className="flex-[2] bg-blue-600 text-white font-semibold px-8 py-5 rounded-2xl hover:bg-white transition-all uppercase text-xs tracking-[0.2em] shadow-sm shadow-[#0dcaf0]/10 flex items-center justify-center gap-3 disabled:opacity-50"
                 >
                   {submitting ? (
                     <Loader2 className="animate-spin" size={18} />
