@@ -74,7 +74,7 @@ const Bins = () => {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-slate-900 font-semibold px-6 py-3 rounded-xl shadow-lg shadow-[#0dcaf0]/20"
+          className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-[#0dcaf0]/20"
         >
           <Plus size={18} strokeWidth={3} /> INITIALIZE BIN
         </button>
@@ -205,7 +205,7 @@ const Bins = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-[2] bg-blue-600 text-slate-900 font-semibold px-8 py-4 rounded-2xl hover:bg-blue-700 uppercase text-xs shadow-lg shadow-[#0dcaf0]/20"
+                  className="flex-[2] bg-blue-600 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-blue-700 uppercase text-xs shadow-lg shadow-[#0dcaf0]/20"
                 >
                   Confirm Matrix
                 </button>
