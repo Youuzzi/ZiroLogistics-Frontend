@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import api from "../api/AxiosConfig";
 import logo from "../assets/Vertical.png";
 import toast from "react-hot-toast";
-import { LogIn } from "lucide-react";
+import { LogIn, ShieldCheck } from "lucide-react";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -18,77 +18,87 @@ const Login = () => {
       toast.success(`Welcome back, ${data.name}`);
       window.location.href = "/dashboard";
     } catch (err) {
-      toast.error(err.response?.data?.message || "Authentication Failed");
+      toast.error(err.response?.data?.message || "Authentication failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#121416]">
-      <div className="w-full max-w-md p-8 bg-[#1a1d21]/50 border border-slate-800 rounded-3xl backdrop-blur-sm shadow-2xl">
-        <div className="flex flex-col items-center mb-10">
-          <img
-            src={logo}
-            alt="Ziro"
-            className="w-16 h-16 mb-4 drop-shadow-[0_0_15px_rgba(13,202,240,0.3)]"
-          />
-          <h1 className="text-2xl font-black tracking-tight text-white uppercase">
-            ZIRO<span className="text-[#0dcaf0]">LOGISTICS</span>
+    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-10">
+      <div className="w-full max-w-md">
+        <div className="mb-7 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <img src={logo} alt="ZiroLogistics" className="h-11 w-11 object-contain" />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            Ziro<span className="text-blue-600">Logistics</span>
           </h1>
-          <div className="h-0.5 w-12 bg-[#0dcaf0] mt-2 rounded-full opacity-50"></div>
+          <p className="mt-2 text-sm text-slate-500">Sign in to your warehouse workspace</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2 ml-1">
-              Email Terminal
-            </label>
-            <input
-              type="email"
-              required
-              className="w-full bg-[#121416] border border-slate-800 text-white px-5 py-3.5 rounded-2xl focus:outline-none focus:border-[#0dcaf0] transition-all duration-300"
-              placeholder="admin@zirocraft.com"
-              onChange={(e) =>
-                setCredentials({ ...credentials, email: e.target.value })
-              }
-            />
+        <form
+          onSubmit={handleSubmit}
+          className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm shadow-slate-200/50 sm:p-8"
+        >
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold text-slate-900">Welcome back</h2>
+            <p className="mt-1 text-sm text-slate-500">Enter your account details to continue.</p>
           </div>
-          <div>
-            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2 ml-1">
-              Security Key
-            </label>
-            <input
-              type="password"
-              required
-              className="w-full bg-[#121416] border border-slate-800 text-white px-5 py-3.5 rounded-2xl focus:outline-none focus:border-[#0dcaf0] transition-all duration-300"
-              placeholder="••••••••"
-              onChange={(e) =>
-                setCredentials({ ...credentials, password: e.target.value })
-              }
-            />
+
+          <div className="space-y-5">
+            <div>
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+                Email address
+              </label>
+              <input
+                id="email"
+                type="email"
+                autoComplete="username"
+                required
+                value={credentials.email}
+                onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                placeholder="name@company.com"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                value={credentials.password}
+                onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                placeholder="Enter your password"
+              />
+            </div>
           </div>
+
           <button
+            type="submit"
             disabled={loading}
-            className="w-full bg-[#0dcaf0] text-black font-black py-4 rounded-2xl hover:bg-[#0bb5d6] hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(13,202,240,0.2)]"
+            className="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? (
-              "VERIFYING..."
-            ) : (
-              <>
-                <LogIn size={18} strokeWidth={3} /> ACCESS SYSTEM
-              </>
-            )}
+            <LogIn size={18} />
+            {loading ? "Signing in..." : "Sign in"}
           </button>
+
+          <div className="mt-6 flex items-center justify-center gap-2 border-t border-slate-100 pt-5 text-xs text-slate-500">
+            <ShieldCheck size={15} className="text-emerald-600" />
+            Secure account authentication
+          </div>
         </form>
 
-        <footer className="mt-12 text-center">
-          <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.3em]">
-            © 2026 Zirocraft Studio
-          </p>
-        </footer>
+        <p className="mt-6 text-center text-xs text-slate-400">
+          © 2026 Zirocraft Studio
+        </p>
       </div>
-    </div>
+    </main>
   );
 };
 
