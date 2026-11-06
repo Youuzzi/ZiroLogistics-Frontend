@@ -250,7 +250,7 @@ const Inbound = () => {
 
             <button
               disabled={loading}
-              className="w-full bg-blue-600 text-slate-900 font-semibold py-6 rounded-xl hover:bg-white transition-all flex items-center justify-center gap-4 shadow-sm shadow-[#0dcaf0]/10 disabled:opacity-50 active:scale-95"
+              className="w-full bg-blue-600 text-white font-semibold py-6 rounded-xl hover:bg-white transition-all flex items-center justify-center gap-4 shadow-sm shadow-[#0dcaf0]/10 disabled:opacity-50 active:scale-95"
             >
               {loading ? (
                 <Loader2 className="animate-spin" size={24} />
