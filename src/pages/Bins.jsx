@@ -74,7 +74,7 @@ const Bins = () => {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-[#0dcaf0]/20"
+          className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-blue-600/10"
         >
           <Plus size={18} strokeWidth={3} /> INITIALIZE BIN
         </button>
@@ -103,7 +103,7 @@ const Bins = () => {
                   <LayoutGrid size={180} />
                 </div>
                 <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-slate-100 rounded-xl text-blue-700 group-hover:bg-blue-600 group-hover:text-slate-900 transition-all">
+                  <div className="p-3 bg-slate-100 rounded-xl text-blue-700 group-hover:bg-blue-100 group-hover:text-blue-700 transition-all">
                     <LayoutGrid size={22} />
                   </div>
                   <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
@@ -205,7 +205,7 @@ const Bins = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-[2] bg-blue-600 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-blue-700 uppercase text-xs shadow-lg shadow-[#0dcaf0]/20"
+                  className="flex-[2] bg-blue-600 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-blue-700 uppercase text-xs shadow-lg shadow-blue-600/10"
                 >
                   Confirm Matrix
                 </button>
