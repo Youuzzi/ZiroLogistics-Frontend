@@ -51,7 +51,7 @@ These are proposed starting values, not yet approved production tokens. Test con
 | Text secondary | `#64748B` | Supporting content |
 | Border | `#E2E8F0` | Dividers and outlines |
 | Success | `#15803D` | Successful operations |
-| Warning | `#D97706` | Warnings and low-stock states |
+| Warning | `#B45309` | Warning text and icons on light surfaces; use a separate pale warning surface token if needed |
 | Danger | `#DC2626` | Errors and destructive actions |
 | Info | `#2563EB` | Informational states |
 
