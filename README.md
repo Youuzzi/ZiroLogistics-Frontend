@@ -1,169 +1,183 @@
-# ZiroLogistics – Frontend Interface 🖥️🚀
+# ZiroLogistics — WMS Frontend
 
-> **Repository:** [github.com/Youuzzi/ZiroLogistics-Frontend](https://github.com/Youuzzi/ZiroLogistics-Frontend)
->
-> Antarmuka modern untuk sistem ZiroLogistics WMS. Dibangun dengan React.js dan Tailwind CSS dengan estetika dark mode minimalis khas Zirocraft Studio.
+Frontend web application for the ZiroLogistics Warehouse Management System (WMS).
 
----
+**Project status:** Active development. This repository is a development and portfolio project, not a claim of a production-ready or fully featured WMS.
 
-## 🔗 Related Repository
+## Repositories
 
-| Repository     | Link                                                                      | Status |
-| -------------- | ------------------------------------------------------------------------- | ------ |
-| ⚙️ **Backend** | [ZiroLogistics-Backend](https://github.com/Youuzzi/ZiroLogistics-Backend) | Active |
+| Component | Repository |
+|---|---|
+| Frontend | [ZiroLogistics-Frontend](https://github.com/Youuzzi/ZiroLogistics-Frontend) |
+| Backend API | [ZiroLogistics-Backend](https://github.com/Youuzzi/ZiroLogistics-Backend) |
 
----
+## Current frontend scope
 
-## 🛠️ Tech Stack
+The routes currently registered in `src/App.jsx` are:
 
-| Layer       | Technology                       |
-| ----------- | -------------------------------- |
-| Framework   | React.js 18 (Vite)               |
-| Styling     | Tailwind CSS + Custom Dark Theme |
-| HTTP Client | Axios (dengan JWT Interceptor)   |
-| Routing     | React Router Dom v6              |
-| State       | React useState & useEffect       |
-| Icons       | Lucide React                     |
+| Route | Purpose |
+|---|---|
+| `/login` | Authentication |
+| `/dashboard` | Dashboard summary |
+| `/warehouses` | Warehouse listing and creation |
+| `/warehouses/:warehouseId/bins` | Bin listing and creation for a warehouse |
+| `/items` | Item listing and creation |
+| `/inbound` | Record inbound stock |
+| `/outbound` | Record outbound stock |
+| `/transfer` | Transfer stock between bins |
+| `/ledger` | Inventory movement ledger |
 
----
+The backend also exposes stock and low-stock query endpoints. A dedicated stock inventory page and route are not currently registered in this frontend.
 
-## ✨ Fitur Utama
+### Implemented workflow areas
 
-### 🔐 Authentication
+- JWT login and protected frontend routes.
+- Warehouse and bin listing/creation.
+- Item listing/creation.
+- Inbound and outbound stock transactions.
+- Bin-to-bin stock transfer.
+- Inventory ledger viewing.
+- Dashboard summary fetched from the backend.
 
-- **Login** — JWT-based authentication dengan penyimpanan token di localStorage
-- **Auto Token Injection** — Axios interceptor otomatis menyisipkan token di setiap request
-- **Route Protection** — Halaman terlindungi, redirect ke login jika tidak authenticated
+**Known scope limitations from the current API/frontend audit:**
 
-### 📊 Dashboard
+- Warehouse, bin, and item update/delete operations are not exposed by the audited backend API.
+- The frontend does not currently provide a dedicated inventory stocks page or low-stock alerts page.
+- Dashboard data is fetched when the page loads; it is not a real-time dashboard.
+- The backend's `totalTransactionsToday` summary field currently returns a hard-coded value. Do not interpret it as a verified daily transaction count.
+- Pagination exists as a component, but it is not consistently wired into every list page.
+- A successful login and protected route do not by themselves prove that every backend workflow is authorized or operational.
 
-- **Summary Cards** — Ringkasan total warehouse, total item, total stok, dan aktivitas terkini
-- **Real-time Data** — Data di-fetch langsung dari backend saat halaman dibuka
+Refer to the backend repository for the authoritative API scope and business rules.
 
-### 🏬 Warehouse Management
+## Technology stack
 
-- **Daftar Warehouse** — Tampilan semua gudang dengan pagination
-- **Tambah Warehouse** — Form untuk registrasi gudang baru
-- **Navigasi ke Bin** — Klik warehouse untuk lihat daftar bin di dalamnya
+| Area | Technology |
+|---|---|
+| UI framework | React 19 |
+| Build tooling | Vite 8 |
+| Styling | Tailwind CSS 4 |
+| Routing | React Router DOM 7 |
+| HTTP client | Axios |
+| Notifications | React Hot Toast |
+| Icons | Lucide React |
+| Language | JavaScript (ES modules) |
 
-### 📦 Bin Management
+Dependency versions are maintained in [package.json](package.json).
 
-- **Daftar Bin per Warehouse** — Tampilan semua rak dalam gudang yang dipilih
-- **Tambah Bin** — Form dengan kapasitas berat maksimal, threshold minimum, dan kode bin unik
-- **Capacity Display** — Tampilan visual kapasitas dan occupancy setiap bin
+## Project structure
 
-### 🗃️ Item Management
-
-- **Daftar Item** — Tabel produk dengan pagination
-- **Tambah & Edit Item** — CRUD lengkap dengan validasi input
-- **SKU Management** — Setiap item memiliki SKU unik sebagai identifier
-
-### 📥 Inbound (Barang Masuk)
-
-- **Form Inbound** — Pilih item, warehouse, dan bin tujuan
-- **Dynamic Bin Selection** — Bin otomatis difilter berdasarkan warehouse yang dipilih
-- **Quantity & Notes** — Input jumlah barang dan catatan penerimaan
-- **Idempotency Protection** — Mencegah duplikasi proses saat submit berulang
-
-### 📤 Outbound (Barang Keluar)
-
-- **Form Outbound** — Proses pengeluaran barang dengan validasi stok real-time
-- **Stock Validation** — Sistem menolak outbound jika stok tidak mencukupi
-
-### 🔄 Transfer (Pindah Stok)
-
-- **Antar Bin** — Pindahkan stok dari bin satu ke bin lain dalam warehouse
-- **Form Transfer** — Pilih item, bin asal, dan bin tujuan
-
-### 📋 Inventory Stock
-
-- **Tabel Stok** — Tampilan stok real-time per item per warehouse dengan pagination
-- **Stock Level** — Informasi jumlah stok tersedia per lokasi
-
-### 📖 Inventory Ledger
-
-- **Riwayat Pergerakan** — Seluruh history inbound, outbound, dan transfer dengan pagination
-- **Detail Transaksi** — Informasi lengkap setiap pergerakan stok
-
-### 🎨 UI/UX
-
-- **Dark Mode** — Background `#121416` dengan aksen Cyan (`#0dcaf0`) khas Zirocraft
-- **Responsive Sidebar** — Navigasi collapsible untuk mobile dan desktop
-- **Sticky Header** — Header tetap terlihat saat scroll dengan backdrop blur
-- **Pagination Component** — Komponen pagination reusable di seluruh halaman
-- **Error Boundary** — Tampilan error yang informatif jika terjadi crash
-
----
-
-## 📁 Struktur Project
-
-```
+```text
 src/
 ├── api/
-│   └── api.js              # Axios instance + JWT interceptor + semua API calls
+│   ├── axiosConfig.js
+│   ├── WarehouseService.js
+│   ├── BinService.js
+│   ├── ItemService.js
+│   ├── InboundService.js
+│   ├── OutboundService.js
+│   ├── TransferService.js
+│   ├── InventoryService.js
+│   └── DashboardService.js
 ├── components/
-│   ├── ErrorBoundary.jsx   # Error handling global
-│   ├── MainLayout.jsx      # Layout utama dengan sidebar & header
-│   ├── Pagination.jsx      # Komponen pagination reusable
-│   ├── Sidebar.jsx         # Navigasi sidebar dengan menu items
-│   └── Header.jsx          # Header sticky dengan info user
+│   ├── ErrorBoundary.jsx
+│   ├── MainLayout.jsx
+│   ├── Pagination.jsx
+│   ├── Sidebar.jsx
+│   └── Topbar.jsx
 ├── pages/
-│   ├── Dashboard.jsx       # Halaman dashboard summary
-│   ├── Warehouses.jsx      # Manajemen warehouse
-│   ├── Bins.jsx            # Manajemen bin per warehouse
-│   ├── Items.jsx           # Manajemen item/produk
-│   ├── Inbound.jsx         # Proses barang masuk
-│   ├── Outbound.jsx        # Proses barang keluar
-│   ├── Transfer.jsx        # Pindah stok antar bin
-│   ├── Inventory.jsx       # Monitoring stok real-time
-│   ├── Ledger.jsx          # Riwayat pergerakan stok
-│   └── Login.jsx           # Halaman autentikasi
-└── App.jsx                 # Router & route configuration
+│   ├── Login.jsx
+│   ├── Dashboard.jsx
+│   ├── Warehouses.jsx
+│   ├── Bins.jsx
+│   ├── Items.jsx
+│   ├── Inbound.jsx
+│   ├── Outbound.jsx
+│   ├── Transfer.jsx
+│   └── Ledger.jsx
+├── App.jsx
+├── index.css
+└── main.jsx
 ```
 
----
+This is a representative overview of the current source layout; consult the repository for the complete file tree.
 
-## 🚀 Cara Menjalankan
+## Requirements
 
-### Prerequisites
+- Node.js version supported by the installed Vite 8 release.
+- npm.
+- The ZiroLogistics backend running and reachable from the browser.
 
-- Node.js 18+
-- Backend ZiroLogistics sudah berjalan di `http://localhost:8080`
+For the backend's Java, Docker, database, and environment requirements, follow the [backend README](https://github.com/Youuzzi/ZiroLogistics-Backend#readme).
 
-### Setup
+## Run the frontend locally
+
+### 1. Clone and install
 
 ```bash
-# Clone repository
 git clone https://github.com/Youuzzi/ZiroLogistics-Frontend.git
 cd ZiroLogistics-Frontend
-
-# Install dependencies
 npm install
+```
 
-# Jalankan development server
+### 2. Configure the backend URL
+
+Create a local `.env.local` file in the frontend project root:
+
+```dotenv
+VITE_API_BASE_URL=http://localhost:8081/api/v1.0
+```
+
+The frontend Axios instance reads `VITE_API_BASE_URL`. Do not commit local secrets or environment-specific credentials.
+
+If the backend is hosted elsewhere, set this variable to the reachable API base URL. Restart the Vite development server after changing environment variables.
+
+### 3. Start the development server
+
+```bash
 npm run dev
 ```
 
-### Konfigurasi API
+Vite normally serves the frontend at `http://localhost:5173`.
 
-Sesuaikan base URL backend di `src/api/api.js`:
+### 4. Start the backend
 
-```javascript
-const api = axios.create({
-  baseURL: "http://localhost:8080",
-});
+The backend repository documents the supported local and Docker Compose setup. Its Compose configuration currently exposes the API at `http://localhost:8081`.
+
+For the Docker Compose backend setup, a JWT secret must be configured in the shell before starting Compose. Follow the backend README for the exact PowerShell commands and database configuration.
+
+The backend's optional demo-account initializer requires the `demo` profile and `demo.account.enabled=true`; it is not automatically enabled by simply starting the frontend. Follow the backend documentation to configure an isolated local demo account. Never publish demo credentials.
+
+## Available scripts
+
+```bash
+npm run dev      # Start Vite development server
+npm run build    # Create a production build
+npm run preview  # Preview the production build locally
+npm run lint     # Run ESLint
 ```
 
----
+These commands are documented from `package.json`; their successful execution must be verified in the target environment.
 
-## 📌 Status Project
+## UI/UX documentation
 
-> ⚠️ **In Progress** — Fitur utama sudah berjalan. Masih dalam pengembangan aktif.
+The frontend design and UX standards are maintained in:
 
----
+- [Design System](DESIGN.md) — visual direction, tokens, layout, components, and accessibility target.
+- [Frontend UI/UX Guidelines](docs/FRONTEND_UI_UX_GUIDELINES.md) — operational workflows and interaction behavior.
+- [Design Decisions](docs/DESIGN_DECISIONS.md) — rationale and status of proposed design decisions.
+- [UI/UX Validation Checklist](docs/UI_UX_VALIDATION_CHECKLIST.md) — validation steps for visual, responsive, accessibility, and workflow testing.
 
-## 👨‍💻 Developer
+These documents are drafts pending review. WCAG 2.2 Level AA is a design and validation target, not a claim that the current application conforms.
 
-**Yozi Heru Maulana** — [github.com/Youuzzi](https://github.com/Youuzzi)
+## Security and demo notes
 
-_Zirocraft Studio_
+- Never commit passwords, JWT secrets, API keys, or real user credentials.
+- Use synthetic or anonymized data in screenshots and demonstrations.
+- Frontend route protection is not a security boundary; backend authorization remains authoritative.
+- Do not treat a network failure during an inventory transaction as proof that the transaction was not committed.
+- Keep demo accounts and demo databases isolated from production data.
+
+## Maintainer
+
+**Zirocraft Studio** · [@Youuzzi](https://github.com/Youuzzi)
