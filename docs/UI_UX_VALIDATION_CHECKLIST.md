@@ -111,7 +111,7 @@ Target: WCAG 2.2 Level AA. Passing this checklist alone does not certify conform
 - [ ] Address is optional.
 - [ ] Duplicate code conflict is understandable.
 - [ ] List state refreshes after successful creation.
-- [ ] Unsupported update/delete controls are absent or clearly non-functional placeholders are not shown.
+- [ ] Update/delete actions that are not supported by the backend are not presented as available actions.
 
 ### Bins
 
