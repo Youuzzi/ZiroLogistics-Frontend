@@ -1,4 +1,4 @@
-import api from "./AxiosConfig";
+import api from "./axiosConfig";
 
 export const processTransfer = async (data) => {
   // Idempotency support: requestId wajib ada
