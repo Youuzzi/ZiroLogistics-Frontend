@@ -40,7 +40,7 @@ const Transfer = () => {
         ]);
         setItems(resItems.data.content || []);
         setWarehouses(resWh.data.content || []);
-      } catch (err) {
+      } catch {
         toast.error("Sync Failed");
       }
     };
@@ -54,7 +54,7 @@ const Transfer = () => {
       setSourceStocks(
         data.content.filter((s) => s.itemSku === sku && s.quantity > 0),
       );
-    } catch (err) {
+    } catch {
       toast.error("Stock search failed");
     }
   };
@@ -65,7 +65,7 @@ const Transfer = () => {
       // FIX: Panggil getBinsByWarehouse yang benar
       const { data } = await getBinsByWarehouse(whId);
       setDestBins(data || []);
-    } catch (err) {
+    } catch {
       toast.error("Target Bins failed");
     }
   };
@@ -103,7 +103,6 @@ const Transfer = () => {
   const selectedSource = sourceStocks.find(
     (s) => s.binCode === form.sourceBinCode,
   );
-  const selectedItem = items.find((i) => i.sku === form.sku);
 
   return (
     <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-700">
