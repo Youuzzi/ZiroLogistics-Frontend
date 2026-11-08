@@ -1,4 +1,4 @@
-import api from "./AxiosConfig";
+import api from "./axiosConfig";
 
 /**
  * ZiroLogistics Inbound Service Engine
