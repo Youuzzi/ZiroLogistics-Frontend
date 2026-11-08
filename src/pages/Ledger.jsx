@@ -20,7 +20,7 @@ const Ledger = () => {
     try {
       const { data } = await getInventoryLedger();
       setLogs(data.content || []);
-    } catch (err) {
+    } catch {
       toast.error("Failed to sync audit logs");
     } finally {
       setLoading(false);
