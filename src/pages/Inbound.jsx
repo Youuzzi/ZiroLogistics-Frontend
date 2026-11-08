@@ -40,7 +40,7 @@ const Inbound = () => {
         ]);
         setItems(resItems.data.content || []);
         setWarehouses(resWh.data.content || []);
-      } catch (err) {
+      } catch {
         toast.error("Failed to sync master data");
       }
     };
@@ -53,7 +53,7 @@ const Inbound = () => {
     try {
       const { data } = await getBinsByWarehouse(whId);
       setBins(data || []);
-    } catch (err) {
+    } catch {
       toast.error("Failed to load bins for this terminal");
     }
   };
