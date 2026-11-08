@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Tambahkan ini
 import { getBinsByWarehouse, createBin } from "../api/BinService";
 import { Plus, LayoutGrid, Loader2, Weight, ChevronLeft } from "lucide-react";
@@ -17,21 +17,21 @@ const Bins = () => {
     maxWeightCapacity: 1000,
   });
 
-  const fetchBins = async () => {
+  const fetchBins = useCallback(async () => {
     setLoading(true);
     try {
       const { data } = await getBinsByWarehouse(warehouseId);
       setBins(data || []);
-    } catch (err) {
+    } catch {
       toast.error("Failed to load bin mapping");
     } finally {
       setLoading(false);
     }
-  };
+  }, [warehouseId]);
 
   useEffect(() => {
     fetchBins();
-  }, [warehouseId]);
+  }, [fetchBins]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
