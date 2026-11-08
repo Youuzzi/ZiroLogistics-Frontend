@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../api/AxiosConfig";
+import api from "../api/axiosConfig";
 import logo from "../assets/Vertical.png";
 import toast from "react-hot-toast";
 import { LogIn, ShieldCheck } from "lucide-react";
