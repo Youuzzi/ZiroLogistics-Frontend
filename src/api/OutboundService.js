@@ -1,4 +1,4 @@
-import api from "./AxiosConfig";
+import api from "./axiosConfig";
 
 export const processOutbound = async (data) => {
   // Membawa requestId untuk keamanan Idempotency
