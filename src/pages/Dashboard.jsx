@@ -1,68 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { getDashboardSummary } from "../api/DashboardService";
 import {
   Warehouse,
   Package,
-  Activity,
   Loader2,
   Landmark,
   ArrowUpRight,
   Boxes,
+  AlertCircle,
+  RefreshCw,
 } from "lucide-react";
 
-const Dashboard = () => {
-  const [summary, setSummary] = useState({
-    totalWarehouses: 0,
-    totalBins: 0,
-    totalItems: 0,
-    totalTransactionsToday: 0,
-  });
-  const [loading, setLoading] = useState(true);
+const metricCards = [
+  {
+    key: "totalItems",
+    label: "Registered items",
+    description: "Items in the catalog",
+    icon: Package,
+    iconClass: "bg-blue-50 text-blue-700",
+  },
+  {
+    key: "totalWarehouses",
+    label: "Warehouses",
+    description: "Registered locations",
+    icon: Warehouse,
+    iconClass: "bg-violet-50 text-violet-700",
+  },
+  {
+    key: "totalBins",
+    label: "Storage bins",
+    description: "Storage locations",
+    icon: Landmark,
+    iconClass: "bg-amber-50 text-amber-700",
+  },
+];
 
-  useEffect(() => {
-    const fetchSummary = async () => {
-      try {
-        const { data } = await getDashboardSummary();
-        setSummary(data);
-      } catch (err) {
-        console.error("Dashboard sync failed", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchSummary();
+const formatMetric = (value) => {
+  if (typeof value !== "number" || !Number.isFinite(value)) return "—";
+  return value.toLocaleString();
+};
+
+const Dashboard = () => {
+  const [summary, setSummary] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const fetchSummary = useCallback(async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const { data } = await getDashboardSummary();
+      setSummary(data);
+    } catch (err) {
+      console.error("Dashboard sync failed", err);
+      setError("Dashboard data could not be loaded. Check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const metrics = [
-    {
-      label: "Registered items",
-      value: summary.totalItems,
-      description: "Items in the catalog",
-      icon: Package,
-      iconClass: "bg-blue-50 text-blue-700",
-    },
-    {
-      label: "Warehouses",
-      value: summary.totalWarehouses,
-      description: "Registered locations",
-      icon: Warehouse,
-      iconClass: "bg-violet-50 text-violet-700",
-    },
-    {
-      label: "Storage bins",
-      value: summary.totalBins,
-      description: "Storage locations",
-      icon: Landmark,
-      iconClass: "bg-amber-50 text-amber-700",
-    },
-    {
-      label: "Transactions today",
-      value: summary.totalTransactionsToday,
-      description: "Inventory movements",
-      icon: Activity,
-      iconClass: "bg-emerald-50 text-emerald-700",
-    },
-  ];
+  useEffect(() => {
+    fetchSummary();
+  }, [fetchSummary]);
 
   return (
     <div className="space-y-8">
@@ -73,43 +73,63 @@ const Dashboard = () => {
             Dashboard
           </h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-            A clear overview of your warehouse network, catalog, storage locations, and daily activity.
+            A clear overview of your warehouse network, catalog, and storage locations.
           </p>
-        </div>
-        <div className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700">
-          <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          Workspace available
         </div>
       </section>
 
-      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {metrics.map(({ label, value, description, icon: Icon, iconClass }) => (
-          <article
-            key={label}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/40"
+      {error ? (
+        <section
+          role="alert"
+          className="flex flex-col gap-4 rounded-2xl border border-rose-200 bg-rose-50 p-5 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div className="flex items-start gap-3">
+            <AlertCircle className="mt-0.5 shrink-0 text-rose-600" size={20} />
+            <div>
+              <h2 className="font-semibold text-rose-900">Unable to load dashboard</h2>
+              <p className="mt-1 text-sm leading-6 text-rose-700">{error}</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={fetchSummary}
+            disabled={loading}
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-rose-200 bg-white px-4 py-2.5 text-sm font-semibold text-rose-700 transition-colors hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm font-medium text-slate-500">{label}</p>
-                <div className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
-                  {loading ? (
-                    <Loader2 className="animate-spin text-slate-400" size={27} />
-                  ) : (
-                    Number(value ?? 0).toLocaleString()
-                  )}
+            <RefreshCw size={16} className={loading ? "animate-spin" : ""} />
+            Try again
+          </button>
+        </section>
+      ) : (
+        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {metricCards.map(({ key, label, description, icon: Icon, iconClass }) => (
+            <article
+              key={key}
+              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/40"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm font-medium text-slate-500">{label}</p>
+                  <div className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
+                    {loading ? (
+                      <Loader2 className="animate-spin text-slate-400" size={27} />
+                    ) : (
+                      formatMetric(summary?.[key])
+                    )}
+                  </div>
+                </div>
+                <div className={`rounded-xl p-3 ${iconClass}`}>
+                  <Icon size={21} strokeWidth={1.9} />
                 </div>
               </div>
-              <div className={`rounded-xl p-3 ${iconClass}`}>
-                <Icon size={21} strokeWidth={1.9} />
+              <div className="mt-5 flex items-center gap-1.5 border-t border-slate-100 pt-3 text-xs text-slate-500">
+                <ArrowUpRight size={14} className="text-slate-400" />
+                {description}
               </div>
-            </div>
-            <div className="mt-5 flex items-center gap-1.5 border-t border-slate-100 pt-3 text-xs text-slate-500">
-              <ArrowUpRight size={14} className="text-slate-400" />
-              {description}
-            </div>
-          </article>
-        ))}
-      </section>
+            </article>
+          ))}
+        </section>
+      )}
 
       <section className="grid grid-cols-1 gap-5 xl:grid-cols-[1.4fr_1fr]">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/40">
