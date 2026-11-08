@@ -32,7 +32,7 @@ const Outbound = () => {
       try {
         const resItems = await getItems(0, 100);
         setItems(resItems.data.content || []);
-      } catch (err) {
+      } catch {
         toast.error("Failed to sync items");
       }
     };
@@ -47,7 +47,7 @@ const Outbound = () => {
         (s) => s.itemSku === sku && s.quantity > 0,
       );
       setAvailableStocks(filtered);
-    } catch (err) {
+    } catch {
       toast.error("Failed to check stock locations");
     }
   };
