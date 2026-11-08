@@ -41,7 +41,7 @@ const Items = () => {
     try {
       const { data } = await getItems();
       setItems(data.content || []);
-    } catch (err) {
+    } catch {
       toast.error("Database Sync Failed");
     } finally {
       setLoading(false);
